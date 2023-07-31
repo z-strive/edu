@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <div class="login">
+        <div class="login" @keyup.enter="login">
             <div class="login-left">
                 <div class="icon">
                     <span class="iconfont icon-shu1"></span>

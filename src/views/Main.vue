@@ -6,7 +6,7 @@
                 <p>教育管理系统</p>
             </div>
             <div class="menu">
-                <el-menu :default-active="crumbs" class="el-menu-vertical-demo" background-color="#202741" text-color="#FFFFFF" @close="handleClose"
+                <el-menu :default-active="crumbs.router" class="el-menu-vertical-demo" background-color="#202741" text-color="#FFFFFF" @close="handleClose"
                 @select="handleOpen"
                 >
                     <el-menu-item :index="item.name + ''" v-for="item in noChildren" :key="item.name" @click="jump(item)">
@@ -32,7 +32,7 @@
                 <div class="header-wrap">
                     <div class="header-left">
                         <span class="iconfont icon-mianbaoxie"></span>
-                        <p>{{ crumbs }}</p>
+                        <p>{{ crumbs.router }}</p>
                     </div>
                     <div class="header-right">
                         <span class="iconfont icon-wenhao"></span>
@@ -62,6 +62,8 @@
 
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import useStore from '../store'
+
 const router = useRouter()
 const dataMenu = ref([
     {
@@ -151,7 +153,8 @@ const dataMenu = ref([
         children: []
     }
 ])
-let crumbs = ref('首页')
+let crumbs = useStore()
+
 // 有children
 const hasChildren = computed(() => dataMenu.value.filter(item => item.children))
 // 没有children
@@ -162,7 +165,7 @@ const jump = (item) => {
 }
 const handleOpen = (key, keyPath) => {
     console.log(key, keyPath)
-    crumbs.value = key
+    crumbs.changeRouter(key)
 }
 const handleClose = (key, keyPath) => {
     console.log(key, keyPath)
@@ -170,7 +173,6 @@ const handleClose = (key, keyPath) => {
 </script>
 
 <style scoped lang="less">
-@import url(../ulits/icon.css);
 .main{
     overflow:auto;
     
