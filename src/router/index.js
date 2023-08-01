@@ -71,6 +71,46 @@ const router = createRouter({
           name: 'setting',
           component: () => import('../views/setting.vue'),
         }
+        ,
+        {
+          path: '/lookOrder',
+          name: 'lookOrder',
+          component: () => import('../views/lookOrder.vue'),
+        }
+        ,
+        {
+          path: '/addLecturer',
+          name: 'addLecturer',
+          component: () => import('../views/addLecturer.vue'),
+        }
+        ,
+        {
+          path: '/addBanner',
+          name: 'addBanner',
+          component: () => import('../views/addBanner.vue'),
+        }
+        ,
+        {
+          path: '/addArticle',
+          name: 'addArticle',
+          component: () => import('../views/addArticle.vue'),
+        },
+        {
+          path: '/addActivity',
+          name: 'addActivity',
+          component: () => import('../views/addActivity.vue'),
+        }
+        ,
+        {
+          path: '/addDiscount',
+          name: 'addDiscount',
+          component: () => import('../views/addDiscount.vue'),
+        },
+        {
+          path: '/design',
+          name: 'design',
+          component: () => import('../views/design.vue'),
+        }
       ]
     }
   ]

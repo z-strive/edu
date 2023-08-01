@@ -1,12 +1,12 @@
 <template>
     <div class="wrap">
-        <p class="header">请输入相关信息</p>
+        <p class="header">请输入轮播图关信息</p>
         <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="120px" class="demo-ruleForm"
             :size="formSize" status-icon>
-            <el-form-item label="课程名称" class="name">
-                <el-input v-model="ruleForm.name" placeholder="请输入课程名称" />
+            <el-form-item label="轮播图名称" class="name">
+                <el-input v-model="ruleForm.name" placeholder="请输入轮播图名称" />
             </el-form-item>
-            <el-form-item label="封面图片" class="pic">
+            <el-form-item label="轮播图" class="pic">
                 <el-upload action="#" list-type="picture-card" :auto-upload="false">
                     <el-icon>
                         <Plus />
@@ -42,30 +42,17 @@
                     <img w-full :src="dialogImageUrl" alt="Preview Image" />
                 </el-dialog>
             </el-form-item>
-            <el-form-item label="商品限制">
-                <el-radio-group v-model="ruleForm.resource">
-                    <el-radio label="上架转态" />
-                    <el-radio label="下架状态" />
-                </el-radio-group>
+            <el-form-item label="轮播图链接" class="textarea">
+                <el-input v-model="ruleForm.textarea" type="textarea" placeholder="请输入链接" />
             </el-form-item>
-            <el-form-item label="课程价格" class="price">
-                <el-input-number v-model="ruleForm.price" :controls="false" placeholder="请输入金额" />
-                <span class="label">元</span>
-            </el-form-item>
-            <el-form-item label="课程简介" class="textarea">
-                <el-input v-model="ruleForm.textarea" :rows="4" type="textarea" placeholder="请输入内容" />
-            </el-form-item>
-            <el-form-item label="讲师介绍" class="textarea">
+            <el-form-item label="轮播图说明" class="textarea">
                 <el-input v-model="ruleForm.textarea2" :rows="4" type="textarea" placeholder="请输入内容" />
-            </el-form-item>
-            <el-form-item label="课程目录" class="textarea">
-                <el-input v-model="ruleForm.catalog" placeholder="请输入目录以“逗号”隔开" />
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm(ruleFormRef)">
-                    Create
+                    确认
                 </el-button>
-                <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
+                <el-button @click="resetForm(ruleFormRef)">取消</el-button>
             </el-form-item> 
         </el-form>
     </div>
@@ -83,8 +70,6 @@ const ruleForm = reactive({
     textarea2:'',
     catalog:''
 })
-// 单选
-let radio = ref("1")
 const rules = reactive({
     name: [
         { required: true, message: 'Please input Activity name', trigger: 'blur' },

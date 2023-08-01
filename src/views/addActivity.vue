@@ -1,12 +1,12 @@
 <template>
     <div class="wrap">
-        <p class="header">请输入相关信息</p>
-        <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="120px" class="demo-ruleForm"
+        <p class="header">请输入秒杀活动相关信息</p>
+        <el-form ref="ruleFormRef" :model="ruleForm" label-width="120px" class="demo-ruleForm"
             :size="formSize" status-icon>
-            <el-form-item label="课程名称" class="name">
-                <el-input v-model="ruleForm.name" placeholder="请输入课程名称" />
+            <el-form-item label="活动编号" class="name">
+                <el-input v-model="ruleForm.name" placeholder="请输入活动名称" />
             </el-form-item>
-            <el-form-item label="封面图片" class="pic">
+            <el-form-item label="活动封面" class="pic">
                 <el-upload action="#" list-type="picture-card" :auto-upload="false">
                     <el-icon>
                         <Plus />
@@ -42,31 +42,26 @@
                     <img w-full :src="dialogImageUrl" alt="Preview Image" />
                 </el-dialog>
             </el-form-item>
-            <el-form-item label="商品限制">
-                <el-radio-group v-model="ruleForm.resource">
-                    <el-radio label="上架转态" />
-                    <el-radio label="下架状态" />
+            <el-form-item label="活动状态" class="textarea">
+                <el-radio-group v-model="radio1" class="ml-4">
+                    <el-radio label="1" size="large">上线状态</el-radio>
+                    <el-radio label="2" size="large">下线状态</el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="课程价格" class="price">
-                <el-input-number v-model="ruleForm.price" :controls="false" placeholder="请输入金额" />
-                <span class="label">元</span>
-            </el-form-item>
-            <el-form-item label="课程简介" class="textarea">
-                <el-input v-model="ruleForm.textarea" :rows="4" type="textarea" placeholder="请输入内容" />
-            </el-form-item>
-            <el-form-item label="讲师介绍" class="textarea">
-                <el-input v-model="ruleForm.textarea2" :rows="4" type="textarea" placeholder="请输入内容" />
-            </el-form-item>
-            <el-form-item label="课程目录" class="textarea">
-                <el-input v-model="ruleForm.catalog" placeholder="请输入目录以“逗号”隔开" />
+            <el-form-item label="活动日期" class="textarea">
+                <div class="demo-date-picker">
+                    <div class="block">
+                        <el-date-picker v-model="value1" type="daterange" range-separator="至"
+                            start-placeholder="开始时间" end-placeholder="结束时间" size="default" />
+                    </div>
+                </div>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm(ruleFormRef)">
-                    Create
+                    确认
                 </el-button>
-                <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-            </el-form-item> 
+                <el-button @click="resetForm(ruleFormRef)">取消</el-button>
+            </el-form-item>
         </el-form>
     </div>
 </template>
@@ -79,71 +74,17 @@ const ruleForm = reactive({
     delivery: false,
     resource: '',
     desc: '',
-    textarea:'',
-    textarea2:'',
-    catalog:''
-})
-// 单选
-let radio = ref("1")
-const rules = reactive({
-    name: [
-        { required: true, message: 'Please input Activity name', trigger: 'blur' },
-        { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
-    ],
-    region: [
-        {
-            required: true,
-            message: 'Please select Activity zone',
-            trigger: 'change',
-        },
-    ],
-    count: [
-        {
-            required: true,
-            message: 'Please select Activity count',
-            trigger: 'change',
-        },
-    ],
-    date1: [
-        {
-            type: 'date',
-            required: true,
-            message: 'Please pick a date',
-            trigger: 'change',
-        },
-    ],
-    date2: [
-        {
-            type: 'date',
-            required: true,
-            message: 'Please pick a time',
-            trigger: 'change',
-        },
-    ],
-    type: [
-        {
-            type: 'array',
-            required: true,
-            message: 'Please select at least one activity type',
-            trigger: 'change',
-        },
-    ],
-    resource: [
-        {
-            required: true,
-            message: 'Please select activity resource',
-            trigger: 'change',
-        },
-    ],
-    desc: [
-        { required: true, message: 'Please input activity form', trigger: 'blur' },
-    ],
+    textarea: '',
+    textarea2: '',
+    catalog: ''
 })
 
+const radio1 = ref('1')
 // 上传图片
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
 const disabled = ref(false)
+
 
 const handleRemove = (file) => {
     console.log(file)
@@ -158,7 +99,7 @@ const handleDownload = (file) => {
     console.log(file)
 }
 
-
+const value1 = ref('')
 
 </script>
 
@@ -185,9 +126,11 @@ const handleDownload = (file) => {
         margin-left: 10px;
     }
 }
-.textarea{
+
+.textarea {
     width: 500px;
 }
+
 // 上传图片的样式
 .avatar-uploader .avatar {
     width: 178px;
@@ -215,9 +158,34 @@ const handleDownload = (file) => {
     height: 178px;
     text-align: center;
 }
-.header{
+
+.header {
     margin: 50px 0 28px 80px;
-    font-size: 12px ;
+    font-size: 12px;
     color: #ccc;
+}
+.demo-date-picker {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.demo-date-picker .block {
+  padding: 30px 0;
+  text-align: center;
+  border-right: solid 1px var(--el-border-color);
+  flex: 1;
+}
+
+.demo-date-picker .block:last-child {
+  border-right: none;
+}
+
+.demo-date-picker .demonstration {
+  display: block;
+  color: var(--el-text-color-secondary);
+  font-size: 14px;
+  margin-bottom: 20px;
 }
 </style>

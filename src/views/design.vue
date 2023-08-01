@@ -1,60 +1,29 @@
 <template>
-    <div class="form">
-        <div class="date">
-            <span class="uptime type">起始时间</span>
-            <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始时间"
-                end-placeholder="结束时间" size="default" />
-        </div>
-        <div class="state">
-            <span class="type">活动状态</span>
-            <el-select v-model="value" placeholder="请选择">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-            </el-select>
-        </div>
-        <div class="search">
-            <span class="type">手动搜索</span>
-            <div class="sear">
-                <el-input v-model="input2" placeholder="请输入课程标题或者关键词" />
-            </div>
-        </div>
-        <div class="btn">
-            <el-button type="primary">搜索</el-button>
-            <el-button type="info" plain>重置</el-button>
-        </div>
-    </div>
     <div class="table">
         <div class="top">
-            <h3>秒杀活动列表</h3>
-            <div class="add-course" @click="()=>$router.push('/addActivity')">
+            <h3>轮播图列表</h3>
+            <div class="add-course" @click="() => $router.push('/addDiscount')">
                 <span class="iconfont icon-wenben"></span>
-                <p>添加文章</p>
+                <p>添加时段</p>
             </div>
         </div>
         <div class="tab">
             <el-table ref="multipleTableRef" :data="tableData" style="width: 100%"
                 @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="68" />
-                <el-table-column property="name" label="活动编号" width="114" />
-                <el-table-column property="name" label="活动标题" width="104" />
-                <el-table-column label="封面" width="111">
-                    <template #default="scope">
-                        <div class="tab-img">
-                            <img :src="scope.row.img" alt="">
-                        </div>
-                    </template>
-                </el-table-column>
-                <el-table-column property="name" label="活动状态" width="165" />
-                <el-table-column property="name" label="开始时间" width="114" />
-                <el-table-column property="name" label="结束时间" width="115" />
-                <el-table-column property="name" label="操作" width="152">
+                <el-table-column property="name" label="场次编号" width="205" />
+                <el-table-column property="name" label="场次名称" width="184" />
+                <el-table-column property="name" label="每日开始时间" width="196" />
+                <el-table-column property="name" label="每日结束时间" width="196" />
+                <el-table-column property="name" label="课程数量" width="162" />
+                <el-table-column property="name" label="操作" width="156">
                     <template #default="scope">
                         <div class="tab-btn">
                             <div class="bianji">
-                                <span>设置</span>
-                                <span>|</span>
                                 <span>编辑</span>
                             </div>
-                            <span>删除</span>
+                            <span>
+                                删除
+                            </span>
                         </div>
                     </template>
                 </el-table-column>
@@ -70,12 +39,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 // 多选
 const checked1 = ref(false)
 const value1 = ref('')//时间
 // 多选
 const value = ref('')//上架
+const val = ref('') //上传人
 const input2 = ref('') //搜索框
 const options = [
     {
@@ -195,8 +165,11 @@ const tableData = [
     }
 
     .tab-img {
-        width: 81px;
-        height: 54px;
+        img {
+            width: 162px;
+            height: 54px;
+        }
+
     }
 
     .tab-btn {
@@ -216,7 +189,8 @@ const tableData = [
         }
     }
 }
-.bottom{
+
+.bottom {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
