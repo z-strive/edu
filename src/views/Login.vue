@@ -11,7 +11,7 @@
                     <span>水静流深，涂歌巷舞</span>
                 </div>
                 <div class="register">
-                    <p>没有账号去注册</p>
+                    <p @click="$router.push('/Register')">没有账号去注册</p>
                 </div>
             </div>
             <div class="login-right">

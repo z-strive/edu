@@ -3,20 +3,20 @@ import axios from "axios"
 const instance = axios.create({
     baseURL:'',
     timeout:10000,
-    method:'GET',
+    method:'GET' | 'POST',
 })
 
-instance.interceptors.request.use(function(config){
+instance.interceptors.request.use((config)=>{
     config.headers = {
-        'X-Ayth-Token' : sessionStorage.getItem('token')
+        'Authorization' : 'Bearer' + localStorage.getItem('token')
     }
     return config.headers
-},function(err){
+},(err)=>{
     console.log(err)
 })
-instance.interceptors.response.use(function(res){
+instance.interceptors.response.use((res)=>{
     return res.data
-},function(err){
+},(err)=>{
     return err.message
 }
 )

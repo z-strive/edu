@@ -1,5 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+// import { createVNode,render } from 'vue'
+// import lodingBarVue from '../components/lodingBar.vue'
+// const VNode = createVNode(lodingBarVue)
+// render(VNode,document.body)
+// console.log(VNode)
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -7,6 +13,11 @@ const router = createRouter({
       path: '/',
       name: 'login',
       component: () => import('../views/Login.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/Register.vue')
     },
     {
       path: '/Main',
@@ -114,6 +125,26 @@ const router = createRouter({
       ]
     }
   ]
+  
+})
+
+router.beforeEach((to, from, next) => {
+  // VNode.component.exposed.startLoading()
+  NProgress.start()
+  const token = localStorage.getItem('token');
+  if (to.path === '/') {
+    next();
+    return;
+  }
+  if (!token) {
+    next('/');
+    return;
+  }else next() 
+
+})
+router.afterEach((to,from)=>{
+  NProgress.done()
+  // VNode.component.exposed.endLoading()
 })
 
 export default router

@@ -133,7 +133,7 @@ const tableData = [
 
 <style scoped lang="less">
 .form {
-    width: 90%;
+    width: 98%;
     margin: auto;
     background-color: #fff;
     display: flex;
@@ -162,7 +162,7 @@ const tableData = [
 }
 
 .table {
-    width: 90%;
+    width: 98%;
     margin: 24px auto;
     background-color: #fff;
     box-sizing: border-box;
