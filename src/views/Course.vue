@@ -72,7 +72,7 @@
             <div class="bottom">
                 <el-checkbox v-model="checked1" label="反选" size="large" @change="toggleSelection(tableData)" />
                 <div>
-                    <el-pagination background layout="prev, pager,next,jumper" :total="1000" />
+                    <el-pagination background layout="prev, pager,next,jumper" :total="100" />
                 </div>
             </div>
         </div>

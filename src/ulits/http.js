@@ -1,9 +1,9 @@
 import axios from "axios"
+import { ElLoading } from "element-plus"
 
 const instance = axios.create({
     baseURL:'',
     timeout:10000,
-    method:'GET' | 'POST',
 })
 
 instance.interceptors.request.use((config)=>{

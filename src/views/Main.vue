@@ -6,9 +6,8 @@
                 <p>教育管理系统</p>
             </div>
             <div class="menu">
-                <el-menu :default-active="crumbs.router" class="el-menu-vertical-demo" background-color="#202741" text-color="#FFFFFF" @close="handleClose"
-                @select="handleOpen"
-                >
+                <el-menu :default-active="crumbs.router" class="el-menu-vertical-demo" background-color="#202741"
+                    text-color="#FFFFFF" @close="handleClose" @select="handleOpen">
                     <el-menu-item :index="item.name + ''" v-for="item in noChildren" :key="item.name" @click="jump(item)">
                         <el-icon><span :class="item.icon + ' iconfont'"></span></el-icon>
                         <span>{{ item.name }}</span>
@@ -21,7 +20,7 @@
                             <span>{{ item.name }}</span>
                         </template>
                         <el-menu-item-group v-for="i in item.children" :key="i.name">
-                            <el-menu-item :index="i.name + ''" @click="jump(i)">{{ i.name }}</el-menu-item>
+                            <el-menu-item :index="i.name + ''" @click="jump(i)">{{ i.name }}></el-menu-item>
                         </el-menu-item-group>
                     </el-sub-menu>
                 </el-menu>
@@ -32,7 +31,11 @@
                 <div class="header-wrap">
                     <div class="header-left">
                         <span class="iconfont icon-mianbaoxie"></span>
-                        <p>{{ crumbs.router }}</p>
+                        <div class="crumb">
+                            <el-breadcrumb separator="/">
+                                <el-breadcrumb-item v-for="item in crumbs.crumbs" :key="item">{{ item }}</el-breadcrumb-item>
+                            </el-breadcrumb>
+                        </div>
                     </div>
                     <div class="header-right">
                         <span class="iconfont icon-wenhao"></span>
@@ -44,7 +47,7 @@
                         <div class="admin">
                             <p>管理员：00220</p>
                         </div>
-                        <div class="out">
+                        <div class="out" @click="out">
                             <span class="iconfont icon-tuichu"></span>
                             <p>退出</p>
                         </div>
@@ -164,17 +167,24 @@ const jump = (item) => {
 const handleOpen = (key, keyPath) => {
     console.log(key, keyPath)
     crumbs.changeRouter(key)
+    crumbs.changeCrumbs(keyPath)
 }
 const handleClose = (key, keyPath) => {
     console.log(key, keyPath)
 }
+// 退出登录
+const out = ()=>{
+    localStorage.removeItem('token')
+    router.push('/')
+}
 </script>
 
 <style scoped lang="less">
-.main{
-    overflow:auto;
-    
+.main {
+    overflow: auto;
+
 }
+
 .box {
     display: flex;
 
@@ -204,37 +214,46 @@ const handleClose = (key, keyPath) => {
 
     .container {
         width: 100%;
+        overflow: auto;
+        height: 100vh;
         .header {
             width: 100%;
             background-color: #fff;
             height: 80px;
             line-height: 80px;
             margin-bottom: 24px;
+
             .header-wrap {
                 margin: 0 24px;
                 display: flex;
                 justify-content: space-between;
-                .header-left{
+
+                .header-left {
                     display: flex;
                     align-items: center;
-                    p{
+
+                    .crumb {
                         margin-left: 15px;
                         font-size: 16px;
                     }
                 }
-                .header-right{
+
+                .header-right {
                     display: flex;
                     align-items: center;
-                    .badge{
+
+                    .badge {
                         position: relative;
                         margin: 0 20px;
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        .icon-lingdang{
+
+                        .icon-lingdang {
                             font-size: 25px;
                         }
-                        p{
+
+                        p {
                             width: 16px;
                             height: 16px;
                             text-align: center;
@@ -248,44 +267,51 @@ const handleClose = (key, keyPath) => {
                             color: #fff;
                         }
                     }
-                    .icon-wenhao{
+
+                    .icon-wenhao {
                         font-size: 25px;
                     }
-                    .avatar{
+
+                    .avatar {
                         width: 42px;
                         height: 42px;
                         border-radius: 50%;
                     }
-                    .admin{
+
+                    .admin {
                         margin: 0 40px 0 15px;
                         font-size: 16px;
                         color: #ccc;
                     }
-                    .out{
+
+                    .out {
                         position: relative;
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        span{
+                        cursor: pointer;
+                        span {
                             font-size: 20px;
                             margin-right: 15px;
                         }
-                        p{
+
+                        p {
                             font-size: 16px;
                             color: #ccc;
                         }
                     }
-                    .out::after{
+
+                    .out::after {
                         content: "";
                         width: 2px;
                         height: 16px;
                         display: block;
-                        position:absolute;
+                        position: absolute;
                         background-color: #ccc;
                         z-index: 10;
                         top: 50%;
                         left: -30px;
-                        margin-top: -8px; 
+                        margin-top: -8px;
                     }
                 }
             }
@@ -293,4 +319,5 @@ const handleClose = (key, keyPath) => {
 
         }
     }
-}</style>
+}
+</style>

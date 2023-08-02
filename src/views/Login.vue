@@ -11,7 +11,7 @@
                     <span>水静流深，涂歌巷舞</span>
                 </div>
                 <div class="register">
-                    <p @click="$router.push('/Register')">没有账号去注册</p>
+                    <p @click="$router.push('/register')">没有账号去注册</p>
                 </div>
             </div>
             <div class="login-right">
@@ -42,6 +42,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter()
 const login = ()=>{
     router.push('/Main')
+    localStorage.setItem('token',111)
 }
 </script>
 
