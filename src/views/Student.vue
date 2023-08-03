@@ -22,22 +22,22 @@
         </div>
         <div class="tab">
             <el-table ref="multipleTableRef" :data="tableData" style="width: 100%"
-                @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="68" />
-                <el-table-column property="name" label="用户ID" width="114" />
-                <el-table-column property="name" label="用户昵称" width="104" />
-                <el-table-column label="手机号" property="name" width="127" />
-                <el-table-column property="name" label="付费金额" width="165" />
-                <el-table-column property="name" label="订单数量" width="114" />
-                <el-table-column property="name" label="付费时间" width="115" />
-                <el-table-column property="name" label="账户禁用" width="158">
+                @selection-change="handleSelectionChange" table-layout="fixed">
+                <el-table-column type="selection" align="center" />
+                <el-table-column property="name" label="用户ID" align="center" />
+                <el-table-column property="name" label="用户昵称" align="center" />
+                <el-table-column label="手机号" property="name" align="center"/>
+                <el-table-column property="name" label="付费金额" align="center" />
+                <el-table-column property="name" label="订单数量" align="center" />
+                <el-table-column property="name" label="付费时间" align="center" />
+                <el-table-column property="name" label="账户禁用" align="center">
                     <template #default="scope">
                         <div class="tab-btn">
                             <el-switch v-model="switcha" />
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column property="name" label="操作" width="152">
+                <el-table-column property="name" label="操作" align="center">
                     <template #default="scope">
                         <div class="tab-btn">
                             <div class="bianji" >
@@ -172,7 +172,10 @@ const tableData = [
         display: flex;
         justify-content: space-between;
         font-size: 16px;
-
+        margin-bottom: 10px;
+        h3{
+            font-weight: normal;
+        }
         div {
             color: #2BC17B;
             display: flex;
@@ -186,14 +189,9 @@ const tableData = [
         }
     }
 
-    .tab-img {
-        width: 81px;
-        height: 54px;
-    }
-
     .tab-btn {
         display: flex;
-
+        justify-content: center;
         .bianji {
             color: #2BC17B;
         }

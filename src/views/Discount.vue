@@ -38,15 +38,15 @@
         </div>
         <div class="tab">
             <el-table ref="multipleTableRef" :data="tableData" style="width: 100%"
-                @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="68" />
-                <el-table-column property="name" label="编号" width="114" />
-                <el-table-column property="name" label="名称" width="214" />
-                <el-table-column property="name" label="使用范围" width="124" />
-                <el-table-column property="name" label="使用门槛" width="134" />
-                <el-table-column property="name" label="面值" width="105" />
-                <el-table-column property="name" label="有效期" width="168" />
-                <el-table-column property="name" label="操作" width="172">
+                @selection-change="handleSelectionChange" table-layout="fixed">
+                <el-table-column type="selection" align="center" />
+                <el-table-column property="name" label="编号" align="center" />
+                <el-table-column property="name" label="名称" align="center" />
+                <el-table-column property="name" label="使用范围" align="center" />
+                <el-table-column property="name" label="使用门槛" align="center" />
+                <el-table-column property="name" label="面值" align="center" />
+                <el-table-column property="name" label="有效期" align="center" />
+                <el-table-column property="name" label="操作" align="center">
                     <template #default="scope">
                         <div class="tab-btn">
                             <div class="bianji" >
@@ -179,6 +179,11 @@ const tableData = [
         display: flex;
         justify-content: space-between;
         font-size: 16px;
+        margin-bottom: 10px;
+        h3{
+            font-weight: normal;
+        }
+        
 
         div {
             color: #2BC17B;
@@ -193,14 +198,9 @@ const tableData = [
         }
     }
 
-    .tab-img {
-        width: 81px;
-        height: 54px;
-    }
-
     .tab-btn {
         display: flex;
-
+        justify-content: center;
         .bianji {
             color: #2BC17B;
         }

@@ -150,7 +150,10 @@ const tableData = [
         display: flex;
         justify-content: space-between;
         font-size: 16px;
-
+        margin-bottom: 10px;
+        h3{
+            font-weight: normal;
+        }
         div {
             color: #2BC17B;
             display: flex;

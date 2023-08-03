@@ -32,20 +32,20 @@
         </div>
         <div class="tab">
             <el-table ref="multipleTableRef" :data="tableData" style="width: 100%"
-                @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="68" />
-                <el-table-column property="name" label="标题" width="114" />
-                <el-table-column label="封面" width="111">
+                @selection-change="handleSelectionChange" table-layout="fixed">
+                <el-table-column type="selection" align="center" />
+                <el-table-column property="name" label="标题" align="center" />
+                <el-table-column label="封面" align="center">
                     <template #default="scope">
                         <div class="tab-img">
                             <img :src="scope.row.img" alt="">
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column property="name" label="描述" width="289" />
-                <el-table-column property="name" label="上传人" width="107" />
-                <el-table-column property="name" label="添加时间" width="130" />
-                <el-table-column property="name" label="操作" width="152">
+                <el-table-column property="name" label="描述" align="center"/>
+                <el-table-column property="name" label="上传人" align="center"/>
+                <el-table-column property="name" label="添加时间" align="center"/>
+                <el-table-column property="name" label="操作" align="center">
                     <template #default="scope">
                         <div class="tab-btn">
                             <div class="bianji">
@@ -182,7 +182,10 @@ const tableData = [
         display: flex;
         justify-content: space-between;
         font-size: 16px;
-
+        margin-bottom: 10px;
+        h3{
+            font-weight: normal;
+        }
         div {
             color: #2BC17B;
             display: flex;
@@ -195,15 +198,17 @@ const tableData = [
             }
         }
     }
-
-    .tab-img {
-        width: 81px;
+    .tab-img{
+        margin: auto;
+    }
+    .tab-img,img {
+        width: 160px;
         height: 54px;
     }
 
     .tab-btn {
         display: flex;
-
+        justify-content: center;
         .bianji {
             color: #2BC17B;
         }

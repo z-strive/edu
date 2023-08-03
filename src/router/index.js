@@ -16,8 +16,8 @@ const router = createRouter({
       component: () => import('../views/Register.vue')
     },
     {
-      path: '/Main',
-      name: 'Main',
+      path: '/main',
+      name: 'main',
       redirect: '/home',
       component: () => import('../views/Main.vue'),
       children: [
@@ -34,7 +34,7 @@ const router = createRouter({
         {
           path: "/addCourse",
           name: 'addCourse',
-          component: () => import('../views/addCourse.vue')
+          component: () => import('../views/AddCourse.vue')
         },
         {
           path: '/order',
@@ -44,7 +44,7 @@ const router = createRouter({
         {
           path: '/refund',
           name: 'refund',
-          component: () => import('../views/refund.vue')
+          component: () => import('../views/Refund.vue')
         }, {
           path: '/student',
           name: 'student',
@@ -71,52 +71,52 @@ const router = createRouter({
         }, {
           path: '/discount',
           name: 'discount',
-          component: () => import('../views/discount.vue')
+          component: () => import('../views/Discount.vue')
         },
         {
           path: '/setting',
           name: 'setting',
-          component: () => import('../views/setting.vue'),
+          component: () => import('../views/Setting.vue'),
         }
         ,
         {
           path: '/lookOrder',
           name: 'lookOrder',
-          component: () => import('../views/lookOrder.vue'),
+          component: () => import('../views/LookOrder.vue'),
         }
         ,
         {
           path: '/addLecturer',
           name: 'addLecturer',
-          component: () => import('../views/addLecturer.vue'),
+          component: () => import('../views/AddLecturer.vue'),
         }
         ,
         {
           path: '/addBanner',
           name: 'addBanner',
-          component: () => import('../views/addBanner.vue'),
+          component: () => import('../views/AddBanner.vue'),
         }
         ,
         {
           path: '/addArticle',
           name: 'addArticle',
-          component: () => import('../views/addArticle.vue'),
+          component: () => import('../views/AddArticle.vue'),
         },
         {
           path: '/addActivity',
           name: 'addActivity',
-          component: () => import('../views/addActivity.vue'),
+          component: () => import('../views/AddActivity.vue'),
         }
         ,
         {
           path: '/addDiscount',
           name: 'addDiscount',
-          component: () => import('../views/addDiscount.vue'),
+          component: () => import('../views/AddDiscount.vue'),
         },
         {
           path: '/design',
           name: 'design',
-          component: () => import('../views/design.vue'),
+          component: () => import('../views/Design.vue'),
         }
       ]
     }

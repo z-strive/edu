@@ -32,20 +32,20 @@
         </div>
         <div class="tab">
             <el-table ref="multipleTableRef" :data="tableData" style="width: 100%"
-                @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="68" />
-                <el-table-column property="name" label="名称" width="194" />
-                <el-table-column label="缩略图" width="222">
+                @selection-change="handleSelectionChange" table-layout="fixed">
+                <el-table-column type="selection" align="center" />
+                <el-table-column property="name" label="名称" align="center"/>
+                <el-table-column label="缩略图" align="center">
                     <template #default="scope">
                         <div class="tab-img">
                             <img :src="scope.row.img" alt="">
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column property="name" label="说明" width="228" />
-                <el-table-column property="name" label="上传人" width="107" />
-                <el-table-column property="name" label="添加时间" width="148" />
-                <el-table-column property="name" label="操作" width="152">
+                <el-table-column property="name" label="说明" align="center" />
+                <el-table-column property="name" label="上传人" align="center"/>
+                <el-table-column property="name" label="添加时间" align="center" />
+                <el-table-column property="name" label="操作" align="center">
                     <template #default="scope">
                         <div class="tab-btn">
                             <div class="bianji">
@@ -180,7 +180,10 @@ const tableData = [
         display: flex;
         justify-content: space-between;
         font-size: 16px;
-
+        margin-bottom: 10px;
+        h3{
+            font-weight: normal;
+        }
         div {
             color: #2BC17B;
             display: flex;
@@ -204,7 +207,7 @@ const tableData = [
 
     .tab-btn {
         display: flex;
-
+        justify-content: center;
         .bianji {
             color: #2BC17B;
         }

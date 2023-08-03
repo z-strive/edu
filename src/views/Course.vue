@@ -38,23 +38,23 @@
         </div>
         <div class="tab">
             <el-table ref="multipleTableRef" :data="tableData" style="width: 100%"
-                @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="68" />
-                <el-table-column property="name" label="编号" width="114" />
-                <el-table-column property="name" label="名称" width="176" />
-                <el-table-column label="封面" width="111">
+                @selection-change="handleSelectionChange" :table-layout="tableLayout" >
+                <el-table-column type="selection" align="center"/>
+                <el-table-column property="name" label="编号"  align="center"/>
+                <el-table-column property="name" label="名称" align="center"/>
+                <el-table-column label="封面" align="center">
                     <template #default="scope">
                         <div class="tab-img">
                             <img :src="scope.row.img" alt="">
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column property="name" label="状态" width="83" />
-                <el-table-column property="name" label="价格" width="72" />
-                <el-table-column property="name" label="销量" width="72" />
-                <el-table-column property="name" label="上传人" width="107" />
-                <el-table-column property="name" label="上传时间" width="130" />
-                <el-table-column property="name" label="操作" width="152">
+                <el-table-column property="name" label="状态" align="center"/>
+                <el-table-column property="name" label="价格" align="center"/>
+                <el-table-column property="name" label="销量" align="center"/>
+                <el-table-column property="name" label="上传人" align="center"/>
+                <el-table-column property="name" label="上传时间" align="center"/>
+                <el-table-column property="name" label="操作" align="center" >
                     <template #default="scope">
                         <div class="tab-btn">
                             <div class="bianji">
@@ -88,6 +88,7 @@ const value1 = ref('')//时间
 const value = ref('')//上架
 const val = ref('') //上传人
 const input2 = ref('') //搜索框
+const tableLayout = ref('auto')
 const options = [
     {
         value: '上架',
@@ -132,16 +133,19 @@ const tableData = [
         address: 'No. 189, Grove St, Los Angeles',
     },
     {
+        img: '/src/image/avatar.jpg',
         date: '2016-05-02',
         name: 'Tom',
         address: 'No. 189, Grove St, Los Angeles',
     },
     {
+        img: '/src/image/avatar.jpg',
         date: '2016-05-04',
         name: 'Tom',
         address: 'No. 189, Grove St, Los Angeles',
     },
     {
+        img: '/src/image/avatar.jpg',
         date: '2016-05-01',
         name: 'Tom',
         address: 'No. 189, Grove St, Los Angeles',
@@ -191,7 +195,10 @@ const tableData = [
         display: flex;
         justify-content: space-between;
         font-size: 16px;
-
+        margin-bottom: 10px;
+        h3{
+            font-weight: normal;
+        }
         div {
             color: #2BC17B;
             display: flex;
@@ -204,15 +211,17 @@ const tableData = [
             }
         }
     }
-
-    .tab-img {
-        width: 81px;
+    .tab-img{
+       margin: auto;
+    }
+    .tab-img,img {
+        width: 160px;
         height: 54px;
     }
 
     .tab-btn {
         display: flex;
-
+        justify-content: center;
         .bianji {
             color: #2BC17B;
         }

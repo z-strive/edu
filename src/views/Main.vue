@@ -20,7 +20,7 @@
                             <span>{{ item.name }}</span>
                         </template>
                         <el-menu-item-group v-for="i in item.children" :key="i.name">
-                            <el-menu-item :index="i.name + ''" @click="jump(i)">{{ i.name }}></el-menu-item>
+                            <el-menu-item :index="i.name + ''" @click="jump(i)">{{ i.name }}</el-menu-item>
                         </el-menu-item-group>
                     </el-sub-menu>
                 </el-menu>
@@ -92,7 +92,7 @@ const dataMenu = ref([
             {
                 path: 'refund',
                 name: '退款',
-                component: () => import('../views/refund.vue')
+                component: () => import('../views/Refund.vue')
             }
         ]
     },
@@ -142,7 +142,7 @@ const dataMenu = ref([
             }, {
                 path: 'discount',
                 name: '优惠券',
-                component: () => import('../views/discount.vue')
+                component: () => import('../views/Discount.vue')
             }
         ]
     },
@@ -150,7 +150,7 @@ const dataMenu = ref([
         path: '/setting',
         name: '系统设置',
         icon: 'icon-shezhi',
-        component: () => import('../views/setting.vue'),
+        component: () => import('../views/Setting.vue'),
         children: []
     }
 ])
