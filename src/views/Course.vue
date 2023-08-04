@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="tab">
-            <el-table ref="multipleTableRef" :data="tableData" style="width: 100%"
+            <el-table ref="multipleTableRef" :data="tableNum" style="width: 100%"
                 @selection-change="handleSelectionChange" :table-layout="tableLayout" >
                 <el-table-column type="selection" align="center"/>
                 <el-table-column property="name" label="编号"  align="center"/>
@@ -72,7 +72,7 @@
             <div class="bottom">
                 <el-checkbox v-model="checked1" label="反选" size="large" @change="toggleSelection(tableData)" />
                 <div>
-                    <el-pagination background layout="prev, pager,next,jumper" :total="100" />
+                    <el-pagination :page-size="pageSize" v-model:current-page="page" background layout="prev, pager,next,jumper" :total="tableData.length" />
                 </div>
             </div>
         </div>
@@ -80,11 +80,13 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, computed } from 'vue'
 // 多选
 const checked1 = ref(false)
 const value1 = ref('')//时间
 // 多选
+const page = ref(1)
+const pageSize = ref(2)
 const value = ref('')//上架
 const val = ref('') //上传人
 const input2 = ref('') //搜索框
@@ -124,33 +126,34 @@ const toggleSelection = (rows) => {
 }
 const handleSelectionChange = (val) => {
     multipleSelection.value = val
+    console.log(multipleSelection.value)
 }
 
 const tableData = [
     {
         img: '/src/image/avatar.jpg',
-        name: 'Tom',
+        name: 'Tom1',
         address: 'No. 189, Grove St, Los Angeles',
     },
     {
         img: '/src/image/avatar.jpg',
         date: '2016-05-02',
-        name: 'Tom',
+        name: 'Tom2',
         address: 'No. 189, Grove St, Los Angeles',
     },
     {
         img: '/src/image/avatar.jpg',
         date: '2016-05-04',
-        name: 'Tom',
+        name: 'Tom3',
         address: 'No. 189, Grove St, Los Angeles',
     },
     {
         img: '/src/image/avatar.jpg',
         date: '2016-05-01',
-        name: 'Tom',
+        name: 'Tom4',
         address: 'No. 189, Grove St, Los Angeles',
     }]
-
+    const tableNum = computed(() => tableData.slice((page.value-1)*pageSize.value,(page.value-1)*pageSize.value+pageSize.value))
 
 </script>
 

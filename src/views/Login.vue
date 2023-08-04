@@ -18,11 +18,11 @@
                 <h3 class="title">后台登录</h3>
                 <div class="user form">
                     <span class="iconfont icon-yonghu-xianxing"></span>
-                    <input type="text" placeholder="请输入用户名">
+                    <input type="text" placeholder="请输入手机号" v-model="phone">
                 </div>
                 <div class="pwd form">
                     <span class="iconfont icon-suo"></span>
-                    <input type="password" placeholder="请输入密码">
+                    <input type="password" placeholder="请输入密码" v-model="password">
                 </div>
                 <div class="yzm form">
                     <span class="iconfont icon-yanzhengyanzhengma"></span>
@@ -38,16 +38,30 @@
 
 <script setup>
 import {ref} from 'vue'
+import { getLogin } from '../api/index'
 import { useRouter } from 'vue-router';
 const router = useRouter()
-const login = ()=>{
-    router.push('/Main')
-    localStorage.setItem('token',111)
+const phone = ref()
+const password = ref()
+const login = () => {
+    getLogin({
+        phone:phone.value,
+        password:password.value
+    }).then(res=>{
+         console.log(res)               
+         if(res.status==1){
+            localStorage.setItem('token', res.data.token)
+            router.push('/Main')
+            
+         }
+    })
+    
 }
 </script>
 
 <style scoped lang="less">
 @import url(../ulits/icon.css);
+
 .wrap {
     width: 100%;
     height: 100vh;
@@ -55,21 +69,24 @@ const login = ()=>{
     display: flex;
     justify-content: center;
     align-items: center;
+
     .login {
         display: flex;
         width: 1200px;
         height: 784px;
         overflow: hidden;
+
         .login-left {
             background: linear-gradient(180.83deg, #3CB09E 0%, #2BC17B 100%);
             width: 450px;
             height: 784px;
             color: #fff;
+
             .icon {
                 margin: 45px 0 0 60px;
                 display: flex;
                 align-items: center;
-                
+
                 p {
                     margin-left: 10px;
                     font-size: 16px;
@@ -101,8 +118,10 @@ const login = ()=>{
                 border-radius: 32.5px;
                 border: 1px solid #fff;
             }
-            .register:hover p{
+
+            .register:hover p {
                 text-decoration: underline;
+                cursor: pointer;
             }
         }
 
@@ -111,6 +130,7 @@ const login = ()=>{
             height: 800px;
             background: #fff;
             perspective: 800px;
+
             .title {
                 color: #2BC17B;
                 font-size: 50px;
@@ -145,7 +165,8 @@ const login = ()=>{
                     padding-left: 40px;
                 }
             }
-            .btn{
+
+            .btn {
                 width: 255px;
                 height: 65px;
                 border: none;
@@ -154,15 +175,16 @@ const login = ()=>{
                 font-size: 18px;
                 color: #fff;
                 display: block;
-                margin:60px auto;
+                margin: 60px auto;
             }
-            .btn:hover{
+
+            .btn:hover {
                 transform: translateZ(10px);
             }
+
             .btn p:hover {
                 text-decoration: underline;
             }
         }
     }
-}
-</style>
+}</style>

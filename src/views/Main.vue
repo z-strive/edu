@@ -180,10 +180,7 @@ const out = ()=>{
 </script>
 
 <style scoped lang="less">
-.main {
-    overflow: auto;
 
-}
 
 .box {
     display: flex;

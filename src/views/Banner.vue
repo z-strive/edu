@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="tab">
-            <el-table ref="multipleTableRef" :data="tableData" style="width: 100%"
+            <el-table ref="multipleTableRef" :data="tableNum" style="width: 100%"
                 @selection-change="handleSelectionChange" table-layout="fixed">
                 <el-table-column type="selection" align="center" />
                 <el-table-column property="name" label="名称" align="center"/>
@@ -61,7 +61,7 @@
             <div class="bottom">
                 <el-checkbox v-model="checked1" label="反选" size="large" @change="toggleSelection(tableData)" />
                 <div>
-                    <el-pagination background layout="prev, pager,next,jumper" :total="1000" />
+                    <el-pagination :page-size="value" v-model:current-page="num" background layout="prev, pager,next,jumper" :total="tableData.length" />
                 </div>
             </div>
         </div>
@@ -69,12 +69,13 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref,computed } from 'vue'
 // 多选
 const checked1 = ref(false)
 const value1 = ref('')//时间
 // 多选
-const value = ref('')//上架
+const value = ref(2)
+const num = ref(1);
 const val = ref('') //上传人
 const input2 = ref('') //搜索框
 const options = [
@@ -117,26 +118,42 @@ const handleSelectionChange = (val) => {
 const tableData = [
     {
         img: '/src/image/avatar.jpg',
-        name: 'Tom',
+        name: 'Tom1',
         address: 'No. 189, Grove St, Los Angeles',
     },
     {
         date: '2016-05-02',
-        name: 'Tom',
+        name: 'Tom2',
         address: 'No. 189, Grove St, Los Angeles',
     },
     {
         date: '2016-05-04',
-        name: 'Tom',
+        name: 'Tom3',
         address: 'No. 189, Grove St, Los Angeles',
     },
     {
         date: '2016-05-01',
-        name: 'Tom',
+        name: 'Tom4',
         address: 'No. 189, Grove St, Los Angeles',
-    }]
-
-
+    },
+    {
+        date: '2016-05-01',
+        name: 'Tom5',
+        address: 'No. 189, Grove St, Los Angeles',
+    },
+    {
+        date: '2016-05-01',
+        name: 'Tom6',
+        address: 'No. 189, Grove St, Los Angeles',
+    }
+    ,
+    {
+        date: '2016-05-01',
+        name: 'Tom7',
+        address: 'No. 189, Grove St, Los Angeles',
+    }
+]
+const tableNum = computed(() => tableData.slice((num.value-1)*value.value,(num.value-1)*value.value+value.value))
 </script>
 
 <style scoped lang="less">
