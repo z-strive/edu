@@ -18,15 +18,17 @@
                 <h3 class="title">后台登录</h3>
                 <div class="user form">
                     <span class="iconfont icon-yonghu-xianxing"></span>
-                    <input type="text" placeholder="请输入手机号" v-model="phone">
+                    <input type="text" placeholder="请输入手机号" v-model="phone" @change="verifyPhone">
+                    <span v-if="flagPhone" class="verify" required>* 请输入正确的手机号</span>
                 </div>
                 <div class="pwd form">
                     <span class="iconfont icon-suo"></span>
-                    <input type="password" placeholder="请输入密码" v-model="password">
+                    <input type="password" placeholder="请输入密码" v-model="password" @change="verifyPassword">
+                    <span v-if="flagPwd" class="verify">* 请输入密码</span>
                 </div>
                 <div class="yzm form">
                     <span class="iconfont icon-yanzhengyanzhengma"></span>
-                    <input type="input" placeholder="请输入验证码">
+                    <input type="input" placeholder="请输入验证码" v-model="verifyCode">
                 </div>
                 <button class="btn" @click="login">
                     <p>现在登录</p>
@@ -37,31 +39,46 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 import { getLogin } from '../api/index'
 import { useRouter } from 'vue-router';
 const router = useRouter()
 const phone = ref()
 const password = ref()
+const verifyCode = ref(4567)
+const flagPhone = ref(false)
+const flagPwd = ref(false)
+const reg_pho = /^(?:(?:\+|00)86)?1[3-9]\d{9}$/
+// 表单验证
+const verifyPhone = () => {
+    if (!reg_pho.test(phone.value)) {
+        flagPhone.value = true
+    } else {
+        flagPhone.value = false
+    }
+}
+const verifyPassword = () => {
+    if (!password.value) {
+        flagPwd.value = true
+    } else {
+        flagPwd.value = false
+    }
+}
 const login = () => {
     getLogin({
-        phone:phone.value,
-        password:password.value
-    }).then(res=>{
-         console.log(res)               
-         if(res.status==1){
+        phone: phone.value,
+        password: password.value
+    }).then(res => {
+        if (res.status == 1) {
             localStorage.setItem('token', res.data.token)
             router.push('/Main')
-            
-         }
-    })
-    
+        }
+    }).catch(err => console.log(err))
+
 }
 </script>
 
 <style scoped lang="less">
-@import url(../ulits/icon.css);
-
 .wrap {
     width: 100%;
     height: 100vh;
@@ -145,7 +162,7 @@ const login = () => {
                 width: 455px;
                 height: 65px;
                 border-radius: 5px;
-                overflow: hidden;
+                // overflow: hidden;
                 margin: 30px auto;
 
                 span {
@@ -163,6 +180,11 @@ const login = () => {
                     border: none;
                     outline: none;
                     padding-left: 40px;
+                }
+                .verify{
+                    font-size: 12px ;
+                    color: red;
+                    top: 120%;
                 }
             }
 
@@ -187,4 +209,5 @@ const login = () => {
             }
         }
     }
-}</style>
+}
+</style>

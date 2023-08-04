@@ -95,7 +95,7 @@ const onSubmit=() =>{
         englishName:EnglishName.value,
         password:password.value
     }).then(res=>{
-        if(res.status==1) router.push('/login')
+        if(res.status==1) router.push('/')
         
     })
     
