@@ -8,6 +8,7 @@ import 'amfe-flexible'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { createPinia } from 'pinia'
 import piniaPluginPersist from 'pinia-plugin-persist'
+import 'default-passive-events'
 const app = createApp(App)
 const paina = createPinia()
 paina.use(piniaPluginPersist)

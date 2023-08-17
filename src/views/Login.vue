@@ -41,6 +41,7 @@
 <script setup>
 import { ref } from 'vue'
 import { getLogin } from '../api/index'
+import useStore from '../store/index'
 import { useRouter } from 'vue-router';
 const router = useRouter()
 const phone = ref()
@@ -49,6 +50,7 @@ const verifyCode = ref(4567)
 const flagPhone = ref(false)
 const flagPwd = ref(false)
 const reg_pho = /^(?:(?:\+|00)86)?1[3-9]\d{9}$/
+const crumbs = useStore()
 // 表单验证
 const verifyPhone = () => {
     if (!reg_pho.test(phone.value)) {
@@ -69,11 +71,13 @@ const login = () => {
         phone: phone.value,
         password: password.value
     }).then(res => {
+        console.log(res)
         if (res.status == 1) {
             localStorage.setItem('token', res.data.token)
+            crumbs.changeRouter('首页')
             router.push('/Main')
         }
-    }).catch(err => console.log(err))
+    })
 
 }
 </script>

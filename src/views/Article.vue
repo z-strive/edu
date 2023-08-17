@@ -71,7 +71,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 // 多选
 const checked1 = ref(false)
 const value1 = ref('')//时间
