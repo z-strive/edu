@@ -56,6 +56,10 @@
 
 <script setup>
 import { ref } from 'vue'
+import {queryUsersByRole} from '../api/index'
+queryUsersByRole({
+    role:'superAdmin'
+}).then((res)=>console.log(res))
 const switcha = ref(false)
 // 多选
 const checked1 = ref(false)
@@ -151,8 +155,6 @@ const tableData = [
             align-items: center;
         }
     }
-
-
 }
 
 .table {

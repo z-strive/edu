@@ -7,3 +7,5 @@ export const queryCourseByCondition = (data)=>http({url:'/queryCourseByCondition
 export const queryUserByRole = (data) => http({url:'/queryUserByRole',data}) //角色查询
 export const setCourseStatusOut = (data) => http({url:'/setCourseStatusOut',data}) //下架
 export const setCourseStatusDelete = (data) => http({url:'/setCourseStatusDelete',data}) //删除
+export const updateCourse = (data) => http({url:'/updateCourse',data}) //修改课程
+export const queryUsersByRole = (data) => http({url:'/queryUsersByRole',data}) //根据角色查询用户列表

@@ -31,34 +31,34 @@
     <div class="table">
         <div class="top">
             <h3>课程列表</h3>
-            <div class="add-course" @click="()=>$router.push('/addCourse')">
+            <div class="add-course" @click="() => $router.push('/addCourse')">
                 <span class="iconfont icon-wenben"></span>
                 <p>添加课程</p>
             </div>
         </div>
         <div class="tab">
-            <el-table ref="multipleTableRef" :data="tableData" style="width: 100%"
-                @selection-change="handleSelectionChange" :table-layout="tableLayout" >
-                <el-table-column type="selection" align="center"/>
-                <el-table-column property="code" label="编号"  align="center"/>
-                <el-table-column property="name" label="名称" align="center"/>
-                <el-table-column label="封面" align="center" >
+            <el-table ref="multipleTableRef" :data="tableData" style="width: 100%" @selection-change="handleSelectionChange"
+                :table-layout="tableLayout">
+                <el-table-column type="selection" align="center" />
+                <el-table-column property="code" label="编号" align="center" />
+                <el-table-column property="name" label="名称" align="center" />
+                <el-table-column label="封面" align="center">
                     <template #default="scope">
                         <div class="tab-img">
                             <img :src="scope.row.cover" alt="">
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column property="status" label="状态" align="center"/>
-                <el-table-column property="price" label="价格" align="center"/>
-                <el-table-column property="counts" label="销量" align="center"/>
-                <el-table-column property="updateUserName" label="上传人" align="center"/>
-                <el-table-column property="updateTime" label="上传时间" align="center"/>
-                <el-table-column property="operations" label="操作" align="center" >
+                <el-table-column property="status" label="状态" align="center" />
+                <el-table-column property="price" label="价格" align="center" />
+                <el-table-column property="counts" label="销量" align="center" />
+                <el-table-column property="updateUserName" label="上传人" align="center" />
+                <el-table-column property="updateTime" label="上传时间" align="center" />
+                <el-table-column property="operations" label="操作" align="center">
                     <template #default="scope">
                         <div class="tab-btn">
                             <div class="bianji">
-                                <span>编辑</span>
+                                <span @click="edit">编辑</span>
                                 <span>|</span>
                                 <span @click="statusOut">下架</span>
                             </div>
@@ -75,7 +75,8 @@
                 </div>
                 <el-checkbox v-model="checked1" label="反选" size="large" @change="toggleSelection(tableData)" />
                 <div>
-                    <el-pagination :page-size="pageSize" v-model:current-page="page" background layout="prev, pager,next,jumper" :total="100" />
+                    <el-pagination :page-size="pageSize" v-model:current-page="page" background
+                        layout="prev, pager,next,jumper" :total="100" />
                 </div>
             </div>
         </div>
@@ -83,9 +84,10 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import {queryCourseByCondition,setCourseStatusOut,queryUserByRole,courseCover,setCourseStatusDelete} from '../api/index'
-import {exportElcel} from '../ulits/elseConfig'
+import { ref, watch } from 'vue'
+import { queryCourseByCondition, setCourseStatusOut, queryUserByRole, courseCover, setCourseStatusDelete } from '../api/index'
+import { exportElcel } from '../ulits/elseConfig'
+import router from '../router';
 // queryUserByRole({
 //     role:'admin'
 // })
@@ -94,11 +96,11 @@ import {exportElcel} from '../ulits/elseConfig'
 //     pageNumber:10
 // })
 const data = [
-    ['第一列','第二列','第三列'],
-    ['aa','bb','cc'],
-    [1,2,3]
+    ['第一列', '第二列', '第三列'],
+    ['aa', 'bb', 'cc'],
+    [1, 2, 3]
 ]
-const download = () => {exportElcel('导出的表格',data) }
+const download = () => { exportElcel('导出的表格', data) }
 // 多选
 const checked1 = ref(false)
 const value1 = ref('')//时间
@@ -148,36 +150,48 @@ const handleSelectionChange = (val) => {
 }
 
 let tableData = ref()
-// const tableNum = computed(() => tableData.value.slice((page.value-1)*pageSize.value,(page.value-1)*pageSize.value+pageSize.value))
 
+watch(page, (o, n) => {
+    search()
+})
 // 搜索
 const search = () => {
     queryCourseByCondition({
-        pageNumber:page.value,
-        pageSize:pageSize.value,
-        keywords:input2.value
-    }).then(res=>{
+        pageNumber: page.value,
+        pageSize: pageSize.value,
+        keywords: input2.value
+    }).then(res => {
         console.log(res.data)
-        tableData.value = res.data
+        tableData.value = res.data.courses
     }
     )
 }
+
 search()
 // 下架
 const statusOut = () => {
     setCourseStatusOut({
-        courses:multipleSelection.value.map(i=>i.code)
-    }).then(res=>{
+        courses: multipleSelection.value.map(i => i.code)
+    }).then(res => {
         console.log(res)
+        search()
     })
 }
 // 删除
 const del = () => {
-    console.log(multipleSelection.value.map(i=>i.code))
+    console.log(multipleSelection.value.map(i => i.code))
     setCourseStatusDelete({
-        courses:multipleSelection.value.map(i=>i.code)
-    }).then(res=>{
-       console.log(res)
+        courses: multipleSelection.value.map(i => i.code)
+    }).then(res => {
+        console.log(res)
+        search()
+    })
+}
+// 编辑
+const edit = () => {
+    router.push({
+        path:'/addCourse',
+        query:multipleSelection.value[0]
     })
 }
 </script>
@@ -224,9 +238,11 @@ const del = () => {
         justify-content: space-between;
         font-size: 16px;
         margin-bottom: 10px;
-        h3{
+
+        h3 {
             font-weight: normal;
         }
+
         div {
             color: #2BC17B;
             display: flex;
@@ -239,10 +255,13 @@ const del = () => {
             }
         }
     }
-    .tab-img{
-       margin: auto;
+
+    .tab-img {
+        margin: auto;
     }
-    .tab-img,img {
+
+    .tab-img,
+    img {
         width: 160px;
         height: 54px;
     }
@@ -250,6 +269,7 @@ const del = () => {
     .tab-btn {
         display: flex;
         justify-content: center;
+
         .bianji {
             color: #2BC17B;
         }
@@ -264,9 +284,9 @@ const del = () => {
         }
     }
 }
-.bottom{
+
+.bottom {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
-}
-</style>
+}</style>

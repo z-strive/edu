@@ -58,9 +58,7 @@
                         <label for="password">密码:</label>
                         <input type="password" required id="password" v-model="password" >
                     </div>
-
                 </div>
-
             </div>
             <button type="submit" @click="submitForm">提交</button>
         </form>
@@ -95,8 +93,8 @@ const onSubmit=() =>{
         englishName:EnglishName.value,
         password:password.value
     }).then(res=>{
+        console.log(res)
         if(res.status==1) router.push('/')
-        
     })
     
 }

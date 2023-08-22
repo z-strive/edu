@@ -17,7 +17,6 @@ instance.interceptors.request.use((config)=>{
     console.log(err)
 })
 instance.interceptors.response.use((res)=>{
-    console.log(res)
     if(res.data.status==1){
         ElMessage({
             message:res.data.message,
@@ -38,13 +37,14 @@ instance.interceptors.response.use((res)=>{
             }
         })
     }else{
-        let err = err.response.data.data ? err.response.data.data[0].msg : err.response.data.message 
+        let error = err.response.data.data[0] ? err.response.data.data[0].msg : err.response.data.message 
+        console.log(err)
         ElMessage({
-            message:err,
+            message:error,
             type:'warning',
         })
     }
     
-   return err 
+   return err  
 })
 export default instance
